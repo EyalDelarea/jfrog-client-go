@@ -1,0 +1,19 @@
+pool:
+  name: Azure Pipelines
+steps:
+- task: JFrogDotnetCore@1
+  inputs:
+    command: 'restore'
+    artifactoryConnection: 'ecosys art'
+    targetResolveRepo: 'nuget-remote'
+    collectBuildInfo: true
+    rootPath: '**/*.sln'
+- task: JfrogCliV2@1
+  inputs:
+    jfrogPlatformConnection: 'ecosys platform'
+    command: 'jf rt bad $(Build.DefinitionName) $(Build.BuildNumber) nuget-remote --from-rt'
+- task: JFrogPublishBuildInfo@1
+  inputs:
+    artifactoryConnection: 'ecosys art'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
