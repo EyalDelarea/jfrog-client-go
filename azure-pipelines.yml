@@ -7,11 +7,10 @@ steps:
     artifactoryConnection: 'ecosys art'
     targetResolveRepo: 'nuget-remote'
     collectBuildInfo: true
-    rootPath: '**/*.sln'
 - task: JfrogCliV2@1
   inputs:
     jfrogPlatformConnection: 'ecosys platform'
-    command: 'jf rt bad $(Build.DefinitionName) $(Build.BuildNumber) nuget-remote --from-rt'
+    command: 'jf rt bad $(Build.DefinitionName) $(Build.BuildNumber) "eyalde-repo1/" --from-rt --project "eyalde" '
 - task: JFrogPublishBuildInfo@1
   inputs:
     artifactoryConnection: 'ecosys art'
